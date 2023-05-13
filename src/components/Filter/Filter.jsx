@@ -11,7 +11,6 @@ const Filter = ({ value, onChange }) => (
         value={value}
         onChange={onChange}
         className={s.filterInput}
-        placeholder="search"
       />
     </label>
   </div>

@@ -7,8 +7,6 @@
   padding: 20px;
   border-radius: 4px;
   border: #202020;
-  /* box-shadow: 0.5rem 0.5rem 2rem rgb(167, 164, 164),
-    -0.5rem -0.5rem 2rem rgb(172, 171, 171); */
   box-shadow: rgb(139, 167, 147) -1px -1px 15px,
     rgb(255, 255, 255) 15px 15px 35px;
 }
