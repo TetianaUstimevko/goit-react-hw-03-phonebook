@@ -17,20 +17,47 @@ class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   addContact = ({ name, number }) => {
     const normalizedName = name.toLowerCase();
 
-    let isAdded = false;
-    this.state.contacts.forEach(el => {
-      if (el.name.toLowerCase() === normalizedName) {
-        alert(`${name} is already in contacts`);
-        isAdded = true;
-      }
-    });
+    // старий код
+    // let isAdded = false;
+    // this.state.contacts.forEach(el => {
+    //   if (el.name.toLowerCase() === normalizedName) {
+    //     alert(`${name} is already in contacts`);
+    //     isAdded = true;
+    //   }
+    // });
+
+    // if (isAdded) {
+    //   return;
+    // }
+
+    // новий код
+    const isAdded = this.state.contacts.find(
+      el => el.name.toLowerCase() === normalizedName
+    );
 
     if (isAdded) {
+      alert(`${name} is already in contacts`);
       return;
     }
+
     const contact = {
       id: shortid.generate(),
       name: name,
@@ -59,21 +86,6 @@ class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== todoId),
     }));
   };
-
-  componentDidMount() {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
-
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
 
   render() {
     const { contacts, filter } = this.state;
